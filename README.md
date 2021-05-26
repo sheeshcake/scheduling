@@ -1,5 +1,5 @@
 # Scheduling System
 
 ## Changes
-> Added database and seed
-> Added Login for admin
+- Added database and seed
+- Added Login for admin
