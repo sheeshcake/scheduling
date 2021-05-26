@@ -8,11 +8,17 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="{{ url('/') }}/plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ url('/') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('/') }}/dist/css/adminlte.min.css">
+  <!-- jQuery -->
+  <script src="{{ url('/') }}/plugins/jquery/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -100,8 +106,7 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
-<script src="{{ url('/') }}/plugins/jquery/jquery.min.js"></script>
+
 <!-- Bootstrap -->
 <script src="{{ url('/') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
@@ -119,8 +124,8 @@
 <script src="{{ url('/') }}/plugins/chart.js/Chart.min.js"></script>
 
 <!-- AdminLTE for demo purposes -->
-<script src="{{ url('/') }}/dist/js/demo.js"></script>
+<!-- <script src="{{ url('/') }}/dist/js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ url('/') }}/dist/js/pages/dashboard2.js"></script>
+<!-- <script src="{{ url('/') }}/dist/js/pages/dashboard2.js"></script> -->
 </body>
 </html>

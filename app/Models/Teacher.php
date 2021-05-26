@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Models
+class Teacher extends Authenticatable
 {
     use HasFactory;
     protected $guard = "teacher";
@@ -15,6 +16,7 @@ class Teacher extends Models
         'f_name',
         'l_name',
         'username',
+        'plain_password',
         'password',
     ];
     protected $hidden = [

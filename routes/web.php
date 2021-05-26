@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => '/admin'], function(){
 
     Route::prefix('subjects')->group(function(){
         Route::get('/', [SubjectController::class, 'index'])->name("admin.subjects");
+        Route::post('/', [SubjectController::class, 'get'])->name("admin.getsubjects");
         Route::post('/add', [SubjectController::class, 'create'])->name("admin.addsubject");
         Route::post('/delete', [SubjectController::class, 'delete'])->name("admin.deletesubject");
         Route::post('/update', [SubjectController::class, 'update'])->name("admin.updatesubject");
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => '/admin'], function(){
 
     Route::prefix('teachers')->group(function(){
         Route::get('/', [TeacherController::class, 'index'])->name("admin.teachers");
+        Route::post('/', [TeacherController::class, 'get'])->name("admin.getteachers");
         Route::post('/add', [TeacherController::class, 'create'])->name("admin.addteacher");
         Route::post('/delete', [TeacherController::class, 'delete'])->name("admin.deleteteacher");
         Route::post('/update', [TeacherController::class, 'update'])->name("admin.updateteacher");
