@@ -12,6 +12,7 @@ use App\Http\Controllers\RoomController;
 
 use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentLoginController;
+use App\Http\Controllers\MainController;
 
 use App\Http\Controllers\LoginController;
 
@@ -27,7 +28,7 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', function () {
-    return view('mainlayout');
+    return view('auth.login');
 });
 
 Route::get("/adminlogin", function(){
@@ -70,6 +71,8 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => '/admin'], function(){
     });
 
 });
+
+Route::get("/teacher", [MainController::class, 'index']);
 
 //adminlogin
 Route::prefix("/adminlogin")->group(function(){

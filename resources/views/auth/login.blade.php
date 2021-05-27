@@ -23,10 +23,10 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Login as</p>
-      <div class="row">
+      <div class="d-flex justify-content-center">
         <a href="/adminlogin" class="btn btn-primary">Admin</a>
-        <a href="/" class="btn btn-secondary">Teacher</a>
-        <a href="/studentlogin" class="btn btn-warning">Student</a>
+        <br>
+        <a href="/teacher" class="btn btn-secondary">Teacher</a>
       </div>
 
       <!-- /.social-auth-links -->
