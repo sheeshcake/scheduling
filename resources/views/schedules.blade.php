@@ -41,8 +41,8 @@
     <div class="d-flex justify-content-center">
         <button class="btn btn-primary" id="get">Get Schedules</button>
     </div>
-    <div class="row">
-        <table id="schedule-table" class="teble table-bordered">
+    <div class="w-100">
+        <table id="schedule-table" class="teble table-bordered w-100">
             <thead>
                 <th>ID</th>
                 <th>Room Name</th>
@@ -80,7 +80,9 @@
             plugins: [ 'dayGrid', 'interaction' ],
             events: []
         });
-        function fetch_data(id){
+        fetch_data();
+        function fetch_data(id = 0){
+            $('#schedule-table').DataTable().destroy();
             var dataTable = $('#schedule-table').DataTable({
                 "processing" : true,
                 "serverSide" : true,
