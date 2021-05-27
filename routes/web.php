@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\RoomController;
 
 use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentLoginController;
@@ -38,9 +39,11 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => '/admin'], function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name("admin.dashboard");
     Route::prefix('/schedules')->group(function(){
         Route::get('/', [ScheduleController::class, 'index'])->name("admin.schedules");
-        Route::post('/add', [SubjectController::class, 'create'])->name("admin.addschedule");
-        Route::post('/delete', [SubjectController::class, 'delete'])->name("admin.deleteschedule");
-        Route::post('/update', [SubjectController::class, 'update'])->name("admin.updateschedule");
+        Route::post('/', [ScheduleController::class, 'get'])->name("admin.getschedules");
+        Route::post('/calendar', [ScheduleController::class, 'get_calendar'])->name("admin.getcalendar");
+        Route::post('/add', [ScheduleController::class, 'create'])->name("admin.addschedule");
+        Route::post('/delete', [ScheduleController::class, 'delete'])->name("admin.deleteschedule");
+        Route::post('/update', [ScheduleController::class, 'update'])->name("admin.updateschedule");
     });
 
     Route::prefix('subjects')->group(function(){
@@ -57,6 +60,13 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => '/admin'], function(){
         Route::post('/add', [TeacherController::class, 'create'])->name("admin.addteacher");
         Route::post('/delete', [TeacherController::class, 'delete'])->name("admin.deleteteacher");
         Route::post('/update', [TeacherController::class, 'update'])->name("admin.updateteacher");
+    });
+    Route::prefix('rooms')->group(function(){
+        Route::get('/', [RoomController::class, 'index'])->name("admin.rooms");
+        Route::post('/', [RoomController::class, 'get'])->name("admin.getrooms");
+        Route::post('/add', [RoomController::class, 'create'])->name("admin.addroom");
+        Route::post('/delete', [RoomController::class, 'delete'])->name("admin.deleteroom");
+        Route::post('/update', [RoomController::class, 'update'])->name("admin.updateroom");
     });
 
 });

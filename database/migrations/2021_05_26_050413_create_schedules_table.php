@@ -19,7 +19,8 @@ class CreateSchedulesTable extends Migration
             $table->foreignId("room_id");
             $table->foreignId("subject_id");
             $table->string("schedule_day");
-            $table->string("schedule_time");
+            $table->string("schedule_time_start");
+            $table->string("schedule_time_end");
             $table->string("start_month");
             $table->string("end_month");
             $table->timestamps();
