@@ -30,7 +30,7 @@ class ScheduleController extends Controller
                         ->join("rooms", "rooms.id", "=", "schedules.room_id")
                         ->join("subjects", "subjects.id", "=", "schedules.subject_id")
                         ->where("schedules.teacher_id", "=", $request->id)
-                        ->get()->toArray();
+                        ->get(['teachers.*', 'rooms.*', 'subjects.*', 'schedules.*', 'schedules.id as sched_id'])->toArray();
         $allschedules = [];
         $counter = 0;
         foreach($schedules as $data){
@@ -48,12 +48,12 @@ class ScheduleController extends Controller
                 
             }
             $data["schedule_day"] = json_encode($days);
-            $allschedules[$counter][0] = '<div class="text-dark">' . $data["id"] . '</div>';
-            $allschedules[$counter][1] = '<div class="text-dark" data-id="'.$data["id"].'" data-column="room_name">' . $data["room_name"] . '</div>';
-            $allschedules[$counter][2] = '<div class="text-dark" data-id="'.$data["id"].'" data-column="subject_name">' . $data["subject_name"] . '</div>';
-            $allschedules[$counter][3] = '<div class="text-dark" data-id="'.$data["id"].'" data-column="schedule_time">' . $data["schedule_time_start"] . " to " . $data["schedule_time_end"] . '</div>';
-            $allschedules[$counter][4] = '<div class="text-dark" data-id="'.$data["id"].'" data-column="schedules_day">' . str_replace(['[', '"', ']'], " ",$data["schedule_day"]) . '</div>';
-            $allschedules[$counter][5] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$data["id"].'">Delete</button>';
+            $allschedules[$counter][0] = '<div class="text-dark">' . $data["sched_id"] . '</div>';
+            $allschedules[$counter][1] = '<div class="text-dark" data-id="'.$data["sched_id"].'" data-column="room_name">' . $data["room_name"] . '</div>';
+            $allschedules[$counter][2] = '<div class="text-dark" data-id="'.$data["sched_id"].'" data-column="subject_name">' . $data["subject_name"] . '</div>';
+            $allschedules[$counter][3] = '<div class="text-dark" data-id="'.$data["sched_id"].'" data-column="schedule_time">' . $data["schedule_time_start"] . " to " . $data["schedule_time_end"] . '</div>';
+            $allschedules[$counter][4] = '<div class="text-dark" data-id="'.$data["sched_id"].'" data-column="schedules_day">' . str_replace(['[', '"', ']'], " ",$data["schedule_day"]) . '</div>';
+            $allschedules[$counter][5] = '<button type="button" name="delete" class="btn btn-danger btn-xs delete" id="'.$data["sched_id"].'">Delete</button>';
             $counter++;
         }
         $output = array(
@@ -73,7 +73,7 @@ class ScheduleController extends Controller
                         ->get()->toArray();
         $allschedules = [];
         foreach($schedules as $index => $sched){
-            $allschedules[$index]["daysOfWeek"] = array_map('intval', explode(',', str_replace(['[', '"', ']'], "",$sched["schedule_day"])));
+            $allschedules[$index]["dow"] = array_map('intval', explode(',', str_replace(['[', '"', ']'], "",$sched["schedule_day"])));
             $allschedules[$index]["title"] = $sched["subject_name"];
             $allschedules[$index]["startTime"] = $sched["schedule_time_start"];
             $allschedules[$index]["endTime"] = $sched["schedule_time_end"];
@@ -107,6 +107,14 @@ class ScheduleController extends Controller
             if($data){
                 echo "Schedule Added!";
             }
+        }
+    }
+
+    public function delete(Request $request){
+        $data = Schedule::where("id", "=", $request->id)
+                        ->delete();
+        if($data){
+            echo "Schedule Deleted!";
         }
     }
 

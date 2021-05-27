@@ -5,10 +5,10 @@
 @endsection
 
 @section("content")
-<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.2.0/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.2.0/main.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -109,7 +109,11 @@
         </div>
     </div>
     <script>
-        var calendarEl = document.getElementById('calendar');
+        var calendar = $("#calendar").fullCalendar({
+            height: 600,
+            plugins: [ 'dayGrid', 'interaction' ],
+            events: []
+        });
         $(document).ready(function(){
             $('.select-picker').selectpicker();
             fetch_data($("#teacher").val());
@@ -129,12 +133,8 @@
                     type: "post",
                     data: {_token: $("#_token").val(), id: id},
                     success: function(d){
-                        var calendar = new FullCalendar.Calendar(calendarEl, {
-                            height: 600,
-                            plugins: [ 'dayGrid', 'interaction' ],
-                            events: JSON.parse(d)
-                        });
-                        calendar.render();
+                        $("#calendar").fullCalendar('removeEvents'); 
+                        $("#calendar").fullCalendar('addEventSource', JSON.parse(d)); 
                     }
                 });
 
@@ -181,7 +181,7 @@
                 var id = $(this).attr("id");
                 if(confirm("Are you sure you want to remove this?")){
                     $.ajax({
-                        url:"{{ route('admin.deletesubject') }}",
+                        url:"{{ route('admin.deleteschedule') }}",
                         method:"POST",
                         data:{id:id, _token: $("#_token").val()},
                         success:function(data){
