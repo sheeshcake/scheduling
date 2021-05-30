@@ -98,6 +98,9 @@ class ScheduleController extends Controller
                         $subject = Subject::where("id", "=", $d["subject_id"])->get(['subject_name']);
                         echo "<p style='color:red' >Conflict Time to " . $subject[0]['subject_name'] . "</p>";
                         break;
+                    }else if($d["room_id"] == $request->room_id){
+                        echo "<p style='color:red' >This room has a class to " . $subject[0]['subject_name'] . "</p>";
+                        break;
                     }
                 }
             }
