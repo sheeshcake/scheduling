@@ -8,7 +8,7 @@
     <input type="hidden" value="{{ csrf_token() }}" id="_token">
     <div class="card">
         <div class="card-header">
-            Faculty
+            Subjects
         </div>
         <div class="card-body">
             <div id="table-alert"></div>
@@ -18,20 +18,14 @@
             <table id="schedule-table" class="teble table-bordered">
                 <thead>
                     <th>ID</th>
-                    <th>First Name</th>
-                    <th>last Name</th>
-                    <th>Username</th>
-                    <th>Password</th>
+                    <th>Room Name</th>
                     <th></th>
                 </thead>
                 <tbody>
                 </tbody>
                 <tfoot>
                     <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                    <th>Password</th>
+                    <th>Subject Name</th>
                     <th></th>
                 </tfoot>
             </table>
@@ -48,7 +42,7 @@
                     "serverSide" : true,
                     "order" : [],
                     "ajax" : {
-                        url:"{{ route('admin.getteachers') }}",
+                        url:"{{ route('admin.getrooms') }}",
                         type:"post",
                         data: {_token: $("#_token").val()}
                     }
@@ -58,16 +52,13 @@
                 var html = '<tr>';
                 html += '<td  class="bg-primary"></td>';
                 html += '<td contenteditable id="data1" class="bg-primary"></td>';
-                html += '<td contenteditable id="data2" class="bg-primary"></td>';
-                html += '<td contenteditable id="data3" class="bg-primary"></td>';
-                html += '<td contenteditable id="data4" class="bg-primary"></td>';
                 html += '<td  class="bg-primary"><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
                 html += '</tr>';
                 $('#schedule-table tbody').prepend(html);
             });
             function update_data(id, column_name, value){
                 $.ajax({
-                    url:"{{ route('admin.updateteacher') }}",
+                    url:"{{ route('admin.updateroom') }}",
                     method:"POST",
                     data:{id:id, column_name:column_name, value:value, _token: $("#_token").val()},
                     success:function(data)
@@ -88,19 +79,13 @@
                 update_data(id, column_name, value);
             });
             $(document).on('click', '#insert', function(){
-                var f_name = $('#data1').text();
-                var l_name = $('#data2').text();
-                var username = $('#data3').text();
-                var password = $('#data4').text();
-                if(f_name != ''){
+                var room_name = $('#data1').text();
+                if(room_name != ''){
                     $.ajax({
-                        url:"{{ route('admin.addteacher') }}",
+                        url:"{{ route('admin.addroom') }}",
                         method:"POST",
                         data:{
-                            f_name: f_name,
-                            l_name: l_name,
-                            username: username,
-                            password: password,
+                            room_name: room_name,
                             _token: $("#_token").val()
                             },
                         success:function(data){
@@ -121,7 +106,7 @@
                 var id = $(this).attr("id");
                 if(confirm("Are you sure you want to remove this?")){
                     $.ajax({
-                        url:"{{ route('admin.deleteteacher') }}",
+                        url:"{{ route('admin.deleteroom') }}",
                         method:"POST",
                         data:{id:id, _token: $("#_token").val()},
                         success:function(data){

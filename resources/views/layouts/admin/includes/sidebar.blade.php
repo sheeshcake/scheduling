@@ -26,6 +26,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('admin.rooms') }}" class="nav-link">
+                <i class="far fa-building nav-icon"></i>
+                <p>Rooms</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('admin.schedules') }}" class="nav-link">
                 <i class="far fa-calendar nav-icon"></i>
                 <p>Schedule</p>
