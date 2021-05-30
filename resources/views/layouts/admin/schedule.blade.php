@@ -115,6 +115,10 @@
             events: []
         });
         $(document).ready(function(){
+            $("#teacher").on("change", function(){
+                $('#schedule-table').DataTable().destroy();
+                fetch_data($(this).val());
+            })
             $('.select-picker').selectpicker();
             fetch_data($("#teacher").val());
             function fetch_data(id){
